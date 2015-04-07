@@ -12,7 +12,6 @@
 
 namespace RainbowPHP\File;
 
-
 /**
  * Class FileHandler
  * @package RainbowPHP\File

@@ -68,6 +68,7 @@ class MemoryFileHandler extends AbstractFileHandler
         }
 
         $this->cursor++;
+
         return $buffer;
     }
 

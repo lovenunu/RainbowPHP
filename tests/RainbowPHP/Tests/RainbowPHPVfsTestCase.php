@@ -1,10 +1,10 @@
 <?php
 /*************************************************************************************/
-/* This file is part of the Thelia package.                                          */
+/* This file is part of the RainbowPHP package. If you think this file is lost,      */
+/* please send it to anyone kind enough to take care of it. Thank you.               */
 /*                                                                                   */
-/* Copyright (c) OpenStudio                                                          */
-/* email : dev@thelia.net                                                            */
-/* web : http://www.thelia.net                                                       */
+/* email : bperche9@gmail.com                                                        */
+/* web : http://www.benjaminperche.fr                                                */
 /*                                                                                   */
 /* For the full copyright and license information, please view the LICENSE.txt       */
 /* file that was distributed with this source code.                                  */
@@ -17,7 +17,7 @@ use org\bovigo\vfs\vfsStream;
 /**
  * Class RainbowPHPVfsTestCase
  * @package RainbowPHP\Tests
- * @author Benjamin Perche <benjamin@thelia.net>
+ * @author Benjamin Perche <bperche9@gmail.com>
  */
 class RainbowPHPVfsTestCase extends \PHPUnit_Framework_TestCase
 {

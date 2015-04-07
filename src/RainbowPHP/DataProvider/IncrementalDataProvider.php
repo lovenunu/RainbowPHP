@@ -34,8 +34,8 @@ class IncrementalDataProvider implements DataProviderInterface
     private $nextCharListTable;
 
     /**
-     * @param int $minLength
-     * @param int $maxLength
+     * @param int      $minLength
+     * @param int      $maxLength
      * @param string[] $charList
      */
     public function __construct($minLength, $maxLength, array $charList = array(self::CHAR_LIST_ALPHA_LOWER))

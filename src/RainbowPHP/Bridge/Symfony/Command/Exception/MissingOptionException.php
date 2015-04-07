@@ -20,8 +20,6 @@
 /* file that was distributed with this source code.                                  */
 /*************************************************************************************/
 
-
-
 namespace RainbowPHP\Bridge\Symfony\Command\Exception;
 
 /**

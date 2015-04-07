@@ -66,10 +66,10 @@ class RainbowPHP implements RainbowPHPInterface
     }
 
     /**
-     * @param FileHandlerInterface $rainbowTable
+     * @param  FileHandlerInterface $rainbowTable
      * @param $hash
-     * @param int                  $mode
-     * @return array               The found values
+     * @param  int                  $mode
+     * @return array                The found values
      *
      * Use deep search mode if you want to find the results even there is conflicts
      * Use partial hash mode if you only have a partial hash, you should use deep search too to get all the possible results.
