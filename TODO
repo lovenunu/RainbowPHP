@@ -1,0 +1,15 @@
+0.1-alpha3
+---
+
+- Implement remote lookup with several APIs
+
+0.1-alpha2
+---
+
+- Write tests
+- Finish implement ChainedDataProvider
+
+???
+---
+
+- Implement API for remote lookup on a RainbowPHP

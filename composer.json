@@ -1,0 +1,22 @@
+{
+    "name": "lovenunu/rainbowphp",
+    "description": "Rainbow table generator and exploiter written in PHP 5.5",
+    "license": "LGPL-v3+",
+    "authors": [
+        {
+            "name": "Benjamin Perche",
+            "email": "bperche9@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "symfony/console": "~2.6",
+        "phpunit/phpunit": "~4.5"
+    },
+    "autoload": {
+        "psr-4": {
+          "RainbowPHP\\": "src/RainbowPHP/"
+        },
+        "files": ["bootstrap.php"]
+    }
+}

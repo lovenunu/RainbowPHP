@@ -1,0 +1,42 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Component\Console\Application;
+use RainbowPHP\Bridge\Symfony\Command\RainbowGenerateCommand;
+use RainbowPHP\Bridge\Symfony\Command\RainbowGuessHashTypeCommand;
+use RainbowPHP\Bridge\Symfony\Command\RainbowLookupHashCommand;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+
+$ds = DIRECTORY_SEPARATOR;
+
+$loadPaths = [
+    __DIR__.$ds."..".$ds."vendor".$ds."autoload.php",
+    __DIR__.str_repeat($ds."..", 3).$ds."autoload.php",
+];
+
+if (isset($bootstrapFile)) {
+    array_unshift($loadPaths, $bootstrapFile);
+}
+
+$bootstrapped = false;
+
+foreach ($loadPaths as $loadPath) {
+    if (file_exists($loadPath)) {
+        require_once $loadPath;
+        $bootstrapped = true;
+    }
+}
+
+if (!$bootstrapped) {
+    throw new Exception("No autoload file found, have you launched composer install ?");
+}
+
+$rainbow = (new \RainbowPHP\RainbowPHPFactory())->create();
+
+$app = new Application("RainbowPHP", RAINBOW_PHP_VERSION);
+$app->add(new RainbowGenerateCommand($rainbow));
+$app->add(new RainbowGuessHashTypeCommand($rainbow));
+$app->add(new RainbowLookupHashCommand($rainbow));
+
+$app->run(new ArgvInput(), new ConsoleOutput());
