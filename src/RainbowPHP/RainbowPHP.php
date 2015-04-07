@@ -84,7 +84,7 @@ class RainbowPHP implements RainbowPHPInterface
         while ("" !== $line = $rainbowTable->readLine()) {
             $data = $this->formatter->unformat($line);
 
-            if ($hash === key($data) || (true === $partial && false !== strpos(key($data), $hash))) {
+            if ($hash === current($data) || (true === $partial && false !== strpos(current($data), $hash))) {
                 $returnResult += $data;
 
                 if (false === $deep) {
