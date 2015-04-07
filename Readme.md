@@ -13,11 +13,14 @@ $ bin/rainbowphp rainbow:generate -m 1 -e 8 -c "::Alpha::::numeric::&é\"'\(-è_
 ```
 
 The ```-m``` option allow you to precise the minimal size of the string. Default: 1
+
 The ```-e``` option allow you to precise the maximal size to generate. Default: 8
+
 The ```-c``` option allow you define your own character list to generate the table, you can use ```::alpha::``` for lowercase alphabet,
 ```::ALPHA::``` for uppercase, ```::Alpha::``` for both and ```::numeric::``` for numbers. Default: ```::Alpha::::numeric::```
 
 ```md5``` is the hash method to apply.
+
 For now, here are available methods:
 - md5
 - sha1
@@ -62,6 +65,7 @@ To find a hash, you have to use the ```rainbow:lookup``` command with the ```-r`
 Give the generated table to the ```-r``` option, and give the hash as the command argument.
 
 You can use the ```-d|--deep-search``` option to find all the results in the table for the hash. If two values have the same hash, only the first found will be return without this option
+
 You can use the ```-p|--partial``` option if you only have a partial hash. Combined with ```-d```, you can get all the possible values for the partial hash.
 
 Example:
