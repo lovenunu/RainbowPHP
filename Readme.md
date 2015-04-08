@@ -3,6 +3,26 @@ RainbowPHP
 
 RainbowPHP is a set of tools for building rainbow tables and use them to retrieve hash real values.
 
+Install RainbowPHP
+---
+
+To install RainbowPHP, you have to get composer:
+
+```sh
+$ curl -sS https://getcomposer.org/install |sh
+```
+
+Then create a projet:
+```sh
+$ php composer.phar create-project lovenunu/rainbowphp path/ dev-master
+```
+
+Then install dependencies:
+
+```sh
+$ php composer.phar install
+```
+
 Build a rainbow table
 ---
 

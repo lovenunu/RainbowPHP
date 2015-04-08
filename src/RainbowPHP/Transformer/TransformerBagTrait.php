@@ -21,11 +21,19 @@ use RainbowPHP\Exception\RainbowPHPException;
  */
 trait TransformerBagTrait
 {
-    /** @var TransformerInterface[] */
+    /** @var TransformerInterface[]|ReverseTransformerInterface[] */
     protected $transformerCollection;
 
-    public function addTransformer(TransformerInterface $transformer, $name = null)
+    public function addTransformer($transformer, $name = null)
     {
+        if (!$transformer instanceof TransformerInterface && !$transformer instanceof ReverseTransformerInterface) {
+            throw new \InvalidArgumentException(sprintf(
+                "A transformer must implement at least one of these interfaces: %s, %s",
+                TransformerInterface::class,
+                ReverseTransformerInterface::class
+            ));
+        }
+
         if (null !== $name) {
             $this->transformerCollection[$name] = $transformer;
         } else {
@@ -38,6 +46,15 @@ trait TransformerBagTrait
     public function hasTransformer($name)
     {
         return isset($this->transformerCollection[$name]);
+    }
+
+    public function getTransformer($name)
+    {
+        if (!$this->hasTransformer($name)) {
+            throw new \OutOfBoundsException(sprintf("The transformer '%s' doesn't exist", $name));
+        }
+
+        return $this->transformerCollection[$name];
     }
 
     public function deleteTransformer($name)
@@ -87,5 +104,84 @@ trait TransformerBagTrait
     public function allTransformers()
     {
         return $this->transformerCollection;
+    }
+
+    public function addTransformerOnly(TransformerInterface $transformer, $name = null)
+    {
+        $this->addTransformer($transformer, $name);
+    }
+
+    public function addReverseTransformerOnly(ReverseTransformerInterface $transformer, $name = null)
+    {
+        $this->addTransformer($transformer, $name);
+    }
+
+    public function hasTransformerOnly($name)
+    {
+        return $this->hasTransformer($name) && $this->getTransformer($name) instanceof TransformerInterface;
+    }
+
+    public function hasReverseTransformerOnly($name)
+    {
+        return $this->hasTransformer($name) && $this->getTransformer($name) instanceof ReverseTransformerInterface;
+    }
+
+    protected function typedDeleteTransformer($name, $type)
+    {
+        if (!$this->hasTransformer($name)) {
+            throw new \OutOfBoundsException(sprintf("The transformer '%s' doesn't exist", $name));
+        }
+
+        $transformer = $this->getTransformer($name);
+
+        if (!$transformer instanceof $type) {
+            $reflection = new \ReflectionObject($transformer);
+
+            throw new \InvalidArgumentException(sprintf(
+                "The transformer '%s' doesn't implement %s but is implements %s",
+                $name,
+                $type,
+                implode(",", $reflection->getInterfaceNames())
+            ));
+        }
+
+        unset($this->transformerCollection[$name]);
+    }
+
+    public function deleteTransformerOnly($name)
+    {
+        $this->typedDeleteTransformer($name, TransformerInterface::class);
+    }
+
+    public function deleteReverseTransformerOnly($name)
+    {
+        $this->typedDeleteTransformer($name, ReverseTransformerInterface::class);
+    }
+
+    protected function typedGetTransformer($name, $type)
+    {
+        $transformer = $this->getTransformer($name);
+
+        if (!$transformer instanceof $type) {
+            $reflection = new \ReflectionObject($transformer);
+            throw new \InvalidArgumentException(sprintf(
+                "The transformer '%s' doesn't implement %s but is implements %s",
+                $name,
+                $type,
+                implode(",", $reflection->getInterfaceNames())
+            ));
+        }
+
+        return $transformer;
+    }
+
+    public function getTransformerOnly($name)
+    {
+        return $this->typedGetTransformer($name, TransformerInterface::class);
+    }
+
+    public function getReverseTransformerOnly($name)
+    {
+        return $this->typedGetTransformer($name, ReverseTransformerInterface::class);
     }
 }

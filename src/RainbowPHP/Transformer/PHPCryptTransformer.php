@@ -1,10 +1,10 @@
 <?php
 /*************************************************************************************/
-/* This file is part of the RainbowPHP package. If you think this file is lost,      */
-/* please send it to anyone kind enough to take care of it. Thank you.               */
+/* This file is part of the Thelia package.                                          */
 /*                                                                                   */
-/* email : bperche9@gmail.com                                                        */
-/* web : http://www.benjaminperche.fr                                                */
+/* Copyright (c) OpenStudio                                                          */
+/* email : dev@thelia.net                                                            */
+/* web : http://www.thelia.net                                                       */
 /*                                                                                   */
 /* For the full copyright and license information, please view the LICENSE.txt       */
 /* file that was distributed with this source code.                                  */
@@ -12,13 +12,21 @@
 
 namespace RainbowPHP\Transformer;
 
+
 /**
- * Class Md5Transformer
+ * Class PHPCryptTransformer
  * @package RainbowPHP\Transformer
- * @author Benjamin Perche <bperche9@gmail.com>
+ * @author Benjamin Perche <benjamin@thelia.net>
  */
-class Md5Transformer implements TransformerInterface
+class PHPCryptTransformer implements TransformerInterface
 {
+    private $salt;
+
+    public function __construct($salt = null)
+    {
+        $this->salt = $salt;
+    }
+
     /**
      * @param  string $word
      * @return string The transformed string
@@ -27,7 +35,7 @@ class Md5Transformer implements TransformerInterface
      */
     public function transform($word)
     {
-        return md5($word);
+        return crypt($word, $this->salt);
     }
 
     /**
@@ -37,7 +45,7 @@ class Md5Transformer implements TransformerInterface
      */
     public function getName()
     {
-        return "md5";
+        return "php_crypt";
     }
 
     /**
@@ -48,6 +56,6 @@ class Md5Transformer implements TransformerInterface
      */
     public function canHaveBeenTransformedByMe($value)
     {
-        return (bool) preg_match("/^[\da-f]{32}$/i", $value);
+        return preg_match("/^\$1\$[a-z\d\.\/\$]+$/i", $value);
     }
 }

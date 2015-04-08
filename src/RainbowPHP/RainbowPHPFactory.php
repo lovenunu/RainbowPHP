@@ -12,9 +12,12 @@
 
 namespace RainbowPHP;
 
+use RainbowPHP\Transformer\Base64Transformer;
 use RainbowPHP\Transformer\Md5Transformer;
 use RainbowPHP\Transformer\MysqlPasswordTransformer;
+use RainbowPHP\Transformer\PHPCryptTransformer;
 use RainbowPHP\Transformer\Sha1Transformer;
+use RainbowPHP\Transformer\UrlEncodeTransformer;
 
 /**
  * Class RainbowPHPFactory
@@ -37,6 +40,9 @@ class RainbowPHPFactory
             ->addTransformer(new Md5Transformer())
             ->addTransformer(new Sha1Transformer())
             ->addTransformer(new MysqlPasswordTransformer())
+            ->addTransformer(new PHPCryptTransformer())
+            ->addTransformer(new Base64Transformer())
+            ->addTransformer(new UrlEncodeTransformer())
         ;
     }
 

@@ -15,7 +15,9 @@ namespace RainbowPHP\Tests;
 use RainbowPHP\File\MemoryFileHandler;
 use RainbowPHP\RainbowPHP;
 use RainbowPHP\RainbowPHPInterface;
+use RainbowPHP\Tests\Mock\DataProvider\FooBarDataProvider;
 use RainbowPHP\Tests\Mock\Transformer\FalseTransformerMock;
+use RainbowPHP\Tests\Mock\Transformer\NotATransformer;
 use RainbowPHP\Tests\Mock\Transformer\TrueTransformerMock;
 
 /**
@@ -74,5 +76,23 @@ class RainbowPHPTest extends RainbowPHPVfsTestCase
             ["bar" => "foo", "baz" => "foo"],
             $this->rainbow->lookupHash($rainbow, "foo", RainbowPHPInterface::LOOKUP_MODE_DEEP)
         );
+
+        $rainbow->reset();
+        $this->assertEquals(
+            ["bar" => "foo"],
+            $this->rainbow->lookupHash($rainbow, "f", RainbowPHPInterface::LOOKUP_MODE_PARTIAL)
+        );
+
+        $rainbow->reset();
+        $this->assertEquals(
+            ["bar" => "foo", "baz" => "foo"],
+            $this->rainbow->lookupHash($rainbow, "f", RainbowPHPInterface::LOOKUP_MODE_DEEP | RainbowPHPInterface::LOOKUP_MODE_PARTIAL)
+        );
+    }
+
+    public function testGenerateHash()
+    {
+        $this->rainbow->generateRainbowTable($this->fileUrl, new FooBarDataProvider(), new NotATransformer());
+        $this->assertEquals("foo,foo\nbar,bar\nbaz,baz\n", $this->file->getContent());
     }
 }

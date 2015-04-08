@@ -20,19 +20,45 @@ namespace RainbowPHP\Transformer;
 interface TransformerBagInterface
 {
     /**
-     * @param  TransformerInterface $transformer
+     * @param  TransformerInterface|ReverseTransformerInterface $transformer
      * @param  null                 $name
      * @return $this
      */
-    public function addTransformer(TransformerInterface $transformer, $name = null);
+    public function addTransformer($transformer, $name = null);
 
+    public function addTransformerOnly(TransformerInterface $transformer, $name = null);
+
+    public function addReverseTransformerOnly(ReverseTransformerInterface $transformer, $name = null);
+
+    /**
+     * @param $name
+     * @return bool
+     */
     public function hasTransformer($name);
 
+    public function hasTransformerOnly($name);
+
+    public function hasReverseTransformerOnly($name);
+
     public function deleteTransformer($name);
+
+    public function deleteTransformerOnly($name);
+
+    public function deleteReverseTransformerOnly($name);
 
     public function resolveTransformer($transformer);
 
     public function listTransformerNames();
+
+    /**
+     * @param $name
+     * @return TransformerInterface|TransformerAndReverserInterface
+     */
+    public function getTransformer($name);
+
+    public function getTransformerOnly($name);
+
+    public function getReverseTransformerOnly($name);
 
     /**
      * @return TransformerInterface[]

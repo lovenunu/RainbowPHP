@@ -40,5 +40,5 @@ interface TransformerInterface
      *
      * Checks if the given value can be a hash of this type
      */
-    public function canHaveBeenHashedByMe($value);
+    public function canHaveBeenTransformedByMe($value);
 }

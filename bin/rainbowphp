@@ -7,6 +7,10 @@ use RainbowPHP\Bridge\Symfony\Command\RainbowGuessHashTypeCommand;
 use RainbowPHP\Bridge\Symfony\Command\RainbowLookupHashCommand;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use RainbowPHP\Bridge\Symfony\Command\RainbowBase64EncodeCommand;
+use RainbowPHP\Bridge\Symfony\Command\RainbowBase64DecodeCommand;
+use RainbowPHP\Bridge\Symfony\Command\RainbowUrlDecodeCommand;
+use RainbowPHP\Bridge\Symfony\Command\RainbowUrlEncodeCommand;
 
 $ds = DIRECTORY_SEPARATOR;
 
@@ -38,5 +42,9 @@ $app = new Application("RainbowPHP", RAINBOW_PHP_VERSION);
 $app->add(new RainbowGenerateCommand($rainbow));
 $app->add(new RainbowGuessHashTypeCommand($rainbow));
 $app->add(new RainbowLookupHashCommand($rainbow));
+$app->add(new RainbowBase64EncodeCommand($rainbow));
+$app->add(new RainbowBase64DecodeCommand($rainbow));
+$app->add(new RainbowUrlEncodeCommand($rainbow));
+$app->add(new RainbowUrlDecodeCommand($rainbow));
 
 $app->run(new ArgvInput(), new ConsoleOutput());

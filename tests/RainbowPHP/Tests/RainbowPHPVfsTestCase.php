@@ -33,7 +33,7 @@ class RainbowPHPVfsTestCase extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->vfs = vfsStream::setup("rainbowphp", 0777);
-        $this->file = vfsStream::newFile("file1", 0777)->at($this->vfs)->withContent("foo,bar\nbar,baz\nfoo,baz\n");
+        $this->file = vfsStream::newFile("file1", 0777)->at($this->vfs);
         $this->fileUrl = $this->getVfsRootDir()."/file1";
     }
 

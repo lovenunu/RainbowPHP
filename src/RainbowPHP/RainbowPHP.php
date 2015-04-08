@@ -57,7 +57,7 @@ class RainbowPHP implements RainbowPHPInterface
         $possibleTransformers = [];
 
         foreach ($this->transformerCollection as $key => $transformer) {
-            if ($transformer->canHaveBeenHashedByMe($hash)) {
+            if ($transformer->canHaveBeenTransformedByMe($hash)) {
                 $possibleTransformers[$key] = $transformer;
             }
         }
